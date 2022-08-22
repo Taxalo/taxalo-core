@@ -1,0 +1,26 @@
+name: CClubCore
+version: '${project.version}'
+main: me.taxalo.core.Core
+api-version: 1.19
+authors: [ Taxalo ]
+description: Java test Plugin
+commands:
+  manage:
+    description: User ranks manaager
+    permission: taxalocore.command.manage
+  rank:
+    aliases:
+      - ranks
+    description: Ranks manager
+    permission: taxalocore.command.rank
+  perms:
+    aliases:
+      - perm
+    description: Permission manager
+    permission: taxalocore.command.perms
+  setcolor:
+    description: Color Manager
+    permission: taxalocore.command.setcolor
+  tp:
+    permission: taxalocore.command.tp
+    description: Teleport manager
