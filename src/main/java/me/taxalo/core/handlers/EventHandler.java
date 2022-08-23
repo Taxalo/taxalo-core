@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class EventHandler {
     public EventHandler() {
         Arrays.asList(
-                new LoadColorsOnJoin(),new LoadRankOnJoin(),
+                new LoadColorsOnJoin(),new LoadRankOnJoin(), new RemoveRankOnLeave(),
                 new MessageSend(),
                 new ManageMenuClick(), new RankMenuClick()
         ).forEach(event -> Bukkit.getServer().getPluginManager().registerEvents(event, Core.getInstance()));
