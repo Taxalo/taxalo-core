@@ -24,3 +24,6 @@ commands:
   tp:
     permission: taxalocore.command.tp
     description: Teleport manager
+  back:
+    permission: taxalocore.command.back
+    description: Back manager

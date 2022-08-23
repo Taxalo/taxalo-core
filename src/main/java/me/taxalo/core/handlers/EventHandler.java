@@ -11,7 +11,8 @@ public class EventHandler {
         Arrays.asList(
                 new LoadColorsOnJoin(),new LoadRankOnJoin(), new RemoveRankOnLeave(),
                 new MessageSend(),
-                new ManageMenuClick(), new RankMenuClick()
+                new ManageMenuClick(), new RankMenuClick(),
+                new SaveDeathLocation()
         ).forEach(event -> Bukkit.getServer().getPluginManager().registerEvents(event, Core.getInstance()));
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.taxalo.core.database.MongoDB;
 import me.taxalo.core.handlers.CommandHandler;
 import me.taxalo.core.handlers.EventHandler;
+import me.taxalo.core.managers.BackManager;
 import me.taxalo.core.managers.ColorManager;
 import me.taxalo.core.managers.PermissionManager;
 import me.taxalo.core.managers.RankManager;
@@ -27,6 +28,8 @@ public final class Core extends JavaPlugin implements Listener {
     private RankManager rankManager;
     @Getter
     private PermissionManager permissionManager;
+    @Getter
+    private BackManager backManager;
 
     @Override
     public void onEnable() {
@@ -46,6 +49,7 @@ public final class Core extends JavaPlugin implements Listener {
         colorManager = new ColorManager(this);
         permissionManager = new PermissionManager(this);
         rankManager = new RankManager(this);
+        backManager = new BackManager(this);
         settings.sendMessage("Enabled");
         colorManager.loadColors();
     }
