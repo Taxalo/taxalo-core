@@ -2,6 +2,7 @@ package me.taxalo.core.commands;
 
 import me.taxalo.core.Core;
 import me.taxalo.core.managers.BackManager;
+import me.taxalo.core.utils.Settings;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,7 +17,6 @@ public class BackCommand implements CommandExecutor {
             return true;
         }
 
-
         BackManager backManager = Core.getInstance().getBackManager();
         if (backManager == null) return true;
 
@@ -25,6 +25,7 @@ public class BackCommand implements CommandExecutor {
 
         Location location = backManager.getLocation(player.getUniqueId());
         player.teleport(location);
+        player.sendMessage(Settings.getInstance().getPrefix() + "You have been teleported to your last death location.");
         return false;
     }
 }
