@@ -2,7 +2,7 @@ package me.taxalo.core.handlers;
 
 import me.taxalo.core.Core;
 import me.taxalo.core.commands.*;
-import me.taxalo.core.utils.Settings;
+import me.taxalo.core.utils.MM;
 import org.bukkit.ChatColor;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ public class CommandHandler {
         ).forEach(command -> {
             String commandName = command.getClass().getSimpleName().toLowerCase().split("command")[0];
             Objects.requireNonNull(Core.getInstance().getCommand(commandName)).setExecutor(command);
-            Settings.getInstance().sendMessage("Loaded command " + ChatColor.GOLD + commandName);
+            MM.sendMessage("Loaded command " + ChatColor.GOLD + commandName);
         });
     }
 }

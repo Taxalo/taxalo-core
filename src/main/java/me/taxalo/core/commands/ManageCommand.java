@@ -2,7 +2,7 @@ package me.taxalo.core.commands;
 
 import lombok.val;
 import me.taxalo.core.inventories.ManageMenu;
-import me.taxalo.core.utils.Settings;
+import me.taxalo.core.utils.MM;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +17,7 @@ public class ManageCommand implements CommandExecutor {
 
         switch (args.length) {
             case 0:
-                sender.sendMessage(Settings.getInstance().getPrefix() + " Please specify an user to manage.");
+                sender.sendMessage(MM.getPrefix() + " Please specify an user to manage.");
                 break;
             case 1:
                 val senderPlayer = (Player) sender;

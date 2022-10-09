@@ -2,7 +2,7 @@ package me.taxalo.core.commands;
 
 import me.taxalo.core.Core;
 import me.taxalo.core.managers.ColorManager;
-import me.taxalo.core.utils.Settings;
+import me.taxalo.core.utils.MM;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +20,7 @@ public class SetColorCommand implements CommandExecutor {
         ColorManager colorManager = Core.getInstance().getColorManager();
         switch (args.length) {
             case 0:
-                sender.sendMessage(Settings.getInstance().getPrefix() + " Especifíca un color.");
+                sender.sendMessage(MM.getPrefix() + " Especifíca un color.");
                 break;
             case 1:
                 UUID playerUUID = senderPlayer.getUniqueId();
@@ -74,13 +74,13 @@ public class SetColorCommand implements CommandExecutor {
                         colorManager.setColor(playerUUID, ChatColor.BLACK.toString());
                         break;
                     case "list":
-                        sender.sendMessage(Settings.getInstance().getPrefix() + " DARKRED, RED, GOLD, YELLOW, DARKGREEN, GREEN, AQUA, DARKAQUA, DARKBLUE, BLUE, LIGHTPURPLE, DARKPURPLE, WHITE, GRAY, DARKGRAY, BLACK.");
+                        sender.sendMessage(MM.getPrefix() + " DARKRED, RED, GOLD, YELLOW, DARKGREEN, GREEN, AQUA, DARKAQUA, DARKBLUE, BLUE, LIGHTPURPLE, DARKPURPLE, WHITE, GRAY, DARKGRAY, BLACK.");
                         return false;
                     default:
-                        sender.sendMessage(Settings.getInstance().getPrefix() + " Pick a color from /setcolor list");
+                        sender.sendMessage(MM.getPrefix() + " Pick a color from /setcolor list");
                         return false;
                 }
-                sender.sendMessage(Settings.getInstance().getPrefix() + " Your name will be displayed as: " + colorManager.getColor(playerUUID) + sender.getName() + ChatColor.RESET + ".");
+                sender.sendMessage(MM.getPrefix() + " Your name will be displayed as: " + colorManager.getColor(playerUUID) + sender.getName() + ChatColor.RESET + ".");
                 break;
         }
         return false;

@@ -30,9 +30,8 @@ public class LoadRankOnJoin implements Listener {
         UUID playerUUID = player.getUniqueId();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             if (rankManager.getUser(playerUUID) != null) {
-                if (!permissionManager.isLoaded(playerUUID)) {
-                    permissionManager.addAttachment(player);
-                }
+                if (!permissionManager.isLoaded(playerUUID)) permissionManager.addAttachment(player);
+
                 return;
             }
 
