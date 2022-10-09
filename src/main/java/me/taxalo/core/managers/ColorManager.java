@@ -45,6 +45,13 @@ public class ColorManager {
         userColors.put(uuid, color);
         MongoDB mongoHandler = plugin.getMongoHandler();
         mongoHandler.setColor(uuid, color);
+
+        // Update tabname
+        Player player = Bukkit.getServer().getPlayer(uuid);
+
+        if (player == null) return;
+
+        player.setPlayerListName(color + player.getName());
     }
 
 }
