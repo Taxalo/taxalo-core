@@ -17,7 +17,6 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.Objects;
 
-
 @Getter
 public final class Core extends JavaPlugin implements Listener {
 
@@ -32,7 +31,6 @@ public final class Core extends JavaPlugin implements Listener {
     @Getter
     private Scoreboard scoreboard;
 
-
     @Override
     public void onEnable() {
         Instance = this;
@@ -40,8 +38,6 @@ public final class Core extends JavaPlugin implements Listener {
         saveDefaultConfig();
         new CommandHandler();
         new EventHandler();
-
-        scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
 
         String mongoURI = getConfig().getString("mongoURI");
 
@@ -51,6 +47,8 @@ public final class Core extends JavaPlugin implements Listener {
             Bukkit.getPluginManager().disablePlugin(this);
             Bukkit.shutdown();
         }
+
+        scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
 
         mongoHandler = new MongoDB(mongoURI);
         colorManager = new ColorManager(this);
