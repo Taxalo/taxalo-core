@@ -138,6 +138,7 @@ public class MongoDB {
     }
 
     public Document getUser(UUID uuid) {
+
         /*
          * Hay que usar CompletableFuture en vez del propio Scheduler de Bukkit
          * Porque necesitamos hacer una query a mongo en un segundo thread

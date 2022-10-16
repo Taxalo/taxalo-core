@@ -4,6 +4,7 @@ main: me.taxalo.core.Core
 api-version: 1.19
 authors: [ Taxalo ]
 description: Java test Plugin
+
 commands:
   manage:
     description: User ranks manaager

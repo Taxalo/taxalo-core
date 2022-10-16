@@ -1,14 +1,16 @@
 package me.taxalo.core.managers;
 
-import com.nametagedit.plugin.NametagEdit;
 import me.taxalo.core.Core;
 import me.taxalo.core.database.MongoDB;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 public class ColorManager {
@@ -52,7 +54,34 @@ public class ColorManager {
 
         if (player == null) return;
 
-        NametagEdit.getApi().setPrefix(player, color);
+        addToTeam(player.getName(), color);
+    }
+
+    public void addToTeam(String playerName, String color) {
+        Team playerTeam = createTeam(playerName, color);
+
+        if (playerTeam == null) {
+            return;
+        }
+
+        playerTeam.addEntry(playerName);
+    }
+
+    public Team createTeam(String playerName, String color) {
+        Scoreboard teamScoreboard = plugin.getScoreboard();
+
+        Team team = teamScoreboard.getTeam(playerName);
+
+        ChatColor chatColor = Objects.requireNonNull(ChatColor.getByChar(color.substring(1)));
+
+        if (team != null) {
+            team.setColor(chatColor);
+            return null;
+        }
+
+        Team teamName = teamScoreboard.registerNewTeam(playerName);
+        teamName.setColor(chatColor);
+        return teamName;
     }
 
 }

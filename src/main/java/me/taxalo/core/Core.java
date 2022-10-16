@@ -13,21 +13,25 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
 
+import java.util.Objects;
+
+
+@Getter
 public final class Core extends JavaPlugin implements Listener {
 
     @Getter
     public static Core Instance;
-    @Getter
     private MongoDB mongoHandler;
-    @Getter
     private ColorManager colorManager;
-    @Getter
     private RankManager rankManager;
-    @Getter
     private PermissionManager permissionManager;
-    @Getter
     private BackManager backManager;
+
+    @Getter
+    private Scoreboard scoreboard;
+
 
     @Override
     public void onEnable() {
@@ -37,7 +41,10 @@ public final class Core extends JavaPlugin implements Listener {
         new CommandHandler();
         new EventHandler();
 
+        scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
+
         String mongoURI = getConfig().getString("mongoURI");
+
         if (mongoURI == null || mongoURI.length() == 0) {
             MM.sendMessage(ChatColor.DARK_RED + ChatColor.BOLD.toString() + " No valid MongoURI was found in config.yml");
             MM.sendMessage(ChatColor.RED + " Please specify a MongoURI in config.yml");

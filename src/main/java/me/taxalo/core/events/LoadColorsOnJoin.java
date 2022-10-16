@@ -1,11 +1,10 @@
 package me.taxalo.core.events;
 
-import com.nametagedit.plugin.NametagEdit;
 import me.taxalo.core.Core;
 import me.taxalo.core.database.MongoDB;
 import me.taxalo.core.managers.ColorManager;
 import org.bson.Document;
-import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +16,7 @@ public class LoadColorsOnJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        ColorManager colorManager = plugin.getColorManager();
+        final ColorManager colorManager = plugin.getColorManager();
         final Player player = event.getPlayer();
 
         if (colorManager == null) {
@@ -26,18 +25,17 @@ public class LoadColorsOnJoin implements Listener {
         }
 
         if (colorManager.isLoaded(player.getUniqueId())) {
-
-            NametagEdit.getApi().setPrefix(player, colorManager.getColor(player.getUniqueId()));
-
+            colorManager.addToTeam(player.getName(), colorManager.getColor(player.getUniqueId()));
+            player.setScoreboard(plugin.getScoreboard());
             return;
         }
 
-
-        MongoDB mongoHandler = plugin.getMongoHandler();
+        final MongoDB mongoHandler = plugin.getMongoHandler();
         final Document user = mongoHandler.getUser(player.getUniqueId());
 
-        if (user == null) return;
+        String color = user == null ? ChatColor.GRAY.toString() : user.getString("color");
 
-        colorManager.setColor(player.getUniqueId(), user.get("color").toString());
+        colorManager.setColor(player.getUniqueId(), color);
+        player.setScoreboard(plugin.getScoreboard());
     }
 }
