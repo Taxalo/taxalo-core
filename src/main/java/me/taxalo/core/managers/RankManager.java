@@ -28,11 +28,13 @@ public class RankManager {
     }
 
     public void loadUsers() {
-        MongoDB mongoHandler = plugin.getMongoHandler();
+        final MongoDB mongoHandler = plugin.getMongoHandler();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             for (Player player : plugin.getServer().getOnlinePlayers()) {
-                Document user = mongoHandler.getUser(player.getUniqueId());
+                final Document user = mongoHandler.getUser(player.getUniqueId());
+
                 ArrayList<String> ranks = (ArrayList<String>) user.get("ranks");
+
                 if (ranks == null) continue;
                 userList.put(player.getUniqueId(), ranks);
             }
@@ -40,7 +42,7 @@ public class RankManager {
     }
 
     public void loadRanks() {
-        MongoDB mongoHandler = plugin.getMongoHandler();
+        final MongoDB mongoHandler = plugin.getMongoHandler();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             val ranks = mongoHandler.getRanks();
             if (ranks == null) return;
@@ -92,20 +94,26 @@ public class RankManager {
     public void setUser(UUID uuid, ArrayList<String> ranks) {
         userList.put(uuid, ranks);
         mongoHandler.setUserRanks(uuid, ranks);
-        Player player = Bukkit.getServer().getPlayer(uuid);
+
+        final Player player = Bukkit.getServer().getPlayer(uuid);
         if (player == null) return;
+
         permissionManager.removeAttachment(player);
         permissionManager.addAttachment(player);
     }
 
     public void addPermission(String rankName, String permission) {
         val rank = ranksList.get(rankName);
+
         if (rank.contains(permission)) return;
+
         rank.add(permission);
         ranksList.put(rankName, rank);
+
         mongoHandler.addPermission(rankName, permission);
+
         val users = getUsersWithRank(rankName);
-        System.out.println(users);
+
         for (UUID uuid : users) {
            permissionManager.addPermission(uuid, permission);
         }
@@ -113,11 +121,16 @@ public class RankManager {
 
     public void removePermission(String rankName, String permission) {
         val rank = ranksList.get(rankName);
+
         if (!rank.contains(permission)) return;
+
         rank.remove(permission);
         ranksList.put(rankName, rank);
+
         val users = getUsersWithRank(rankName);
+
         mongoHandler.removePermission(rankName, permission);
+
         for (UUID uuid : users) {
             permissionManager.removePermission(uuid, permission);
         }

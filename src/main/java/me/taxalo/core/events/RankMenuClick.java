@@ -19,35 +19,51 @@ public class RankMenuClick implements Listener {
     public void onInventoryClick(InventoryClickEvent e) {
         if (e.getCurrentItem() == null) return;
 
-        Player player = (Player) e.getWhoClicked();
+        final Player player = (Player) e.getWhoClicked();
+
         if (!RanksMenu.rankUsers.containsKey(player.getUniqueId())) return;
 
-        Inventory inventory = RanksMenu.rankUsers.get(player.getUniqueId()).getInventory();
+        final Inventory inventory = RanksMenu.rankUsers.get(player.getUniqueId()).getInventory();
+
         if (e.getClickedInventory() == null || e.getClickedInventory() != inventory) return;
+
         e.setCancelled(true);
 
         val inventoryUser = RanksMenu.getHolder(player.getUniqueId());
 
         switch (e.getCurrentItem().getType()) {
             case GREEN_WOOL:
+
                 val rankManager = plugin.getRankManager();
+
                 if (!e.getClick().isLeftClick()) return;
                 if (e.getCurrentItem().getItemMeta() == null) return;
+
                 val rankName = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName());
+
                 e.getClickedInventory().remove(e.getCurrentItem());
+
                 val userRanks = rankManager.getUser(inventoryUser);
+
                 userRanks.add(rankName);
                 rankManager.setUser(inventoryUser, userRanks);
+
                 break;
             case ANVIL:
+
                 Player inventoryPlayer = Bukkit.getServer().getPlayer(inventoryUser);
+
                 if  (inventoryPlayer == null) {
                     player.closeInventory();
                     return;
                 }
+
                 RanksMenu.removeMenu(player.getUniqueId());
+
                 new ManageMenu(inventoryPlayer, player.getUniqueId());
+
                 player.openInventory(ManageMenu.getMenu(player.getUniqueId()));
+
                 break;
         }
     }

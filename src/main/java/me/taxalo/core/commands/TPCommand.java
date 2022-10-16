@@ -17,23 +17,29 @@ public class TPCommand implements CommandExecutor {
                     sender.sendMessage(MM.getPrefix() + " Specify a player to teleport to.");
                     break;
                 case 1:
-                    Player player = Bukkit.getServer().getPlayer(args[0]);
+                    final Player player = Bukkit.getServer().getPlayer(args[0]);
+
                     if (player == null) {
                         sender.sendMessage(MM.getPrefix() + " That is not a valid player");
                         return false;
                     }
+
                     ((Player) sender).teleport(player.getLocation());
+
                     sender.sendMessage(MM.getPrefix() + " Teleported to " + player.getName());
                     break;
                 case 2:
-                    Player firstPlayer = Bukkit.getServer().getPlayer(args[0]);
-                    Player secondPlayer = Bukkit.getServer().getPlayer(args[1]);
+                    final Player firstPlayer = Bukkit.getServer().getPlayer(args[0]);
+                    final Player secondPlayer = Bukkit.getServer().getPlayer(args[1]);
+
                     if (firstPlayer == null || secondPlayer == null) {
                         sender.sendMessage(MM.getPrefix() + " One of those players is not valid");
                         return false;
                     }
+
                     firstPlayer.teleport(secondPlayer.getLocation());
                     firstPlayer.sendMessage(MM.getPrefix() + " Teleported to " + secondPlayer.getName());
+
                     break;
             }
         } else {

@@ -17,7 +17,7 @@ public class RankCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return false;
 
-        RankManager rankManager = plugin.getRankManager();
+        final RankManager rankManager = plugin.getRankManager();
 
         switch (args.length) {
             case 0:
@@ -29,7 +29,7 @@ public class RankCommand implements CommandExecutor {
                     return false;
                 }
 
-                String list = String.join(ChatColor.RESET + ", " + ChatColor.GOLD, rankManager.getRanks());
+                final String list = String.join(ChatColor.RESET + ", " + ChatColor.GOLD, rankManager.getRanks());
                 sender.sendMessage(MM.getPrefix() + " Ranks: " + ChatColor.GOLD + list);
 
                 break;

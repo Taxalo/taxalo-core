@@ -1,5 +1,6 @@
 package me.taxalo.core.managers;
 
+import com.nametagedit.plugin.NametagEdit;
 import me.taxalo.core.Core;
 import me.taxalo.core.database.MongoDB;
 import org.bson.Document;
@@ -51,7 +52,7 @@ public class ColorManager {
 
         if (player == null) return;
 
-        player.setPlayerListName(color + player.getName());
+        NametagEdit.getApi().setPrefix(player, color);
     }
 
 }

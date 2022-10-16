@@ -17,7 +17,7 @@ public class BackManager {
     }
 
     public Boolean isLoaded(UUID uuid) {
-        Location location = usersLocation.get(uuid);
+        final Location location = usersLocation.get(uuid);
         return location != null;
     }
 

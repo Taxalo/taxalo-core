@@ -1,5 +1,6 @@
 package me.taxalo.core.events;
 
+import com.nametagedit.plugin.NametagEdit;
 import me.taxalo.core.Core;
 import me.taxalo.core.database.MongoDB;
 import me.taxalo.core.managers.ColorManager;
@@ -24,26 +25,19 @@ public class LoadColorsOnJoin implements Listener {
             return;
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        if (colorManager.isLoaded(player.getUniqueId())) {
 
-            if (colorManager.isLoaded(player.getUniqueId())) {
+            NametagEdit.getApi().setPrefix(player, colorManager.getColor(player.getUniqueId()));
 
-                player.setPlayerListName(colorManager.getColor(player.getUniqueId())+ player.getName());
+            return;
+        }
 
-                return;
-            }
 
-            // Load and setplayer color
+        MongoDB mongoHandler = plugin.getMongoHandler();
+        final Document user = mongoHandler.getUser(player.getUniqueId());
 
-            MongoDB mongoHandler = plugin.getMongoHandler();
-            Document user = mongoHandler.getUser(player.getUniqueId());
+        if (user == null) return;
 
-            if (user == null) return;
-
-            colorManager.setColor(player.getUniqueId(), user.get("color").toString());
-
-            player.setPlayerListName(colorManager.getColor(player.getUniqueId())+ player.getName());
-        });
-
+        colorManager.setColor(player.getUniqueId(), user.get("color").toString());
     }
 }

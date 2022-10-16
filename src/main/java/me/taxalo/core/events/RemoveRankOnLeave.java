@@ -12,8 +12,10 @@ public class RemoveRankOnLeave implements Listener {
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
-        PermissionManager permissionManager = plugin.getPermissionManager();
+        final PermissionManager permissionManager = plugin.getPermissionManager();
+
         if (permissionManager == null) return;
+
         if (permissionManager.isLoaded(e.getPlayer().getUniqueId()))
             permissionManager.removeAttachment(e.getPlayer());
     }

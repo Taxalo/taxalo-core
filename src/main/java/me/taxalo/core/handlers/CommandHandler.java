@@ -13,7 +13,8 @@ public class CommandHandler {
         Arrays.asList(
             new ManageCommand(), new SetColorCommand(), new RankCommand(), new PermsCommand(), new TPCommand(), new BackCommand()
         ).forEach(command -> {
-            String commandName = command.getClass().getSimpleName().toLowerCase().split("command")[0];
+            final String commandName = command.getClass().getSimpleName().toLowerCase().split("command")[0];
+
             Objects.requireNonNull(Core.getInstance().getCommand(commandName)).setExecutor(command);
             MM.sendMessage("Loaded command " + ChatColor.GOLD + commandName);
         });

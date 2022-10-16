@@ -29,14 +29,15 @@ public class LoadRankOnJoin implements Listener {
         Player player = event.getPlayer();
         UUID playerUUID = player.getUniqueId();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+
             if (rankManager.getUser(playerUUID) != null) {
                 if (!permissionManager.isLoaded(playerUUID)) permissionManager.addAttachment(player);
-
                 return;
             }
 
             MongoDB mongoHandler = plugin.getMongoHandler();
             Document user = mongoHandler.getUser(playerUUID);
+
             rankManager.setUser(playerUUID, user != null ? (ArrayList<String>) user.get("ranks") : new ArrayList<>());
             permissionManager.addAttachment(player);
         });

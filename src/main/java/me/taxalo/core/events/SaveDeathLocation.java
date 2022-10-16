@@ -11,10 +11,12 @@ public class SaveDeathLocation implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
-        BackManager backManager = Core.getInstance().getBackManager();
+        final BackManager backManager = Core.getInstance().getBackManager();
+
         if (backManager == null) return;
 
-        Player player = e.getEntity();
+        final Player player = e.getEntity();
+
         backManager.setLocation(player.getUniqueId(), player.getLocation());
     }
 }

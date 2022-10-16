@@ -22,7 +22,9 @@ public class ManageCommand implements CommandExecutor {
             case 1:
                 val senderPlayer = (Player) sender;
                 val player = Bukkit.getServer().getPlayer(args[0]);
+
                 if (player == null) return false;
+
                 new ManageMenu(player, senderPlayer.getUniqueId());
 
                 senderPlayer.openInventory(ManageMenu.getMenu(senderPlayer.getUniqueId()));

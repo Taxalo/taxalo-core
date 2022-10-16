@@ -30,8 +30,10 @@ public class ManageMenu {
 
 
     public ManageMenu(Player player, UUID creatorUUID) {
-        ColorManager colorManager = plugin.getColorManager();
-        Inventory inventory = Bukkit.createInventory(null, 54, inventoryName);
+
+        final ColorManager colorManager = plugin.getColorManager();
+        final Inventory inventory = Bukkit.createInventory(null, 54, inventoryName);
+
         val backgroundItem = ItemCreator.createGuiItem(Material.GREEN_STAINED_GLASS_PANE, ChatColor.RESET.toString());
 
         Arrays.asList(
@@ -41,15 +43,18 @@ public class ManageMenu {
                         46, 47, 48, 49, 50, 51, 52)
                 .forEach(integer -> inventory.setItem(integer, backgroundItem));
 
-        ItemStack playerHead = SkullCreator.itemFromUuid(player.getUniqueId());
-        ItemMeta headMeta = playerHead.getItemMeta();
+        final ItemStack playerHead = SkullCreator.itemFromUuid(player.getUniqueId());
+        final ItemMeta headMeta = playerHead.getItemMeta();
+
         if (headMeta != null) {
             headMeta.setDisplayName(colorManager.getColor(player.getUniqueId()) + player.getName());
             playerHead.setItemMeta(headMeta);
         }
+
         inventory.setItem(0, playerHead);
 
         val userRanks = plugin.getRankManager().getUser(player.getUniqueId());
+
         if (userRanks != null) {
             for (String rank : userRanks) {
                 val rankItem = ItemCreator.createGuiItem(Material.PAPER, ChatColor.AQUA + rank, "", ChatColor.RED + ChatColor.UNDERLINE.toString() + "RIGHT CLICK" + ChatColor.RED + " to remove the rank");
@@ -59,12 +64,12 @@ public class ManageMenu {
 
         inventory.setItem(53, rankManager);
 
-        MenuHolder menuHolder = new MenuHolder(player.getUniqueId(), inventory);
+        final MenuHolder menuHolder = new MenuHolder(player.getUniqueId(), inventory);
         managedUsers.put(creatorUUID, menuHolder);
     }
 
     public static Inventory getMenu(UUID creatorUUID) {
-        MenuHolder menuHolder = managedUsers.get(creatorUUID);
+        final MenuHolder menuHolder = managedUsers.get(creatorUUID);
         return menuHolder.getInventory();
     }
 
@@ -73,7 +78,7 @@ public class ManageMenu {
     }
 
     public static UUID getHolder(UUID creatorUUID) {
-        MenuHolder menuHolder = managedUsers.get(creatorUUID);
+        final MenuHolder menuHolder = managedUsers.get(creatorUUID);
         return menuHolder.getCreator();
     }
 

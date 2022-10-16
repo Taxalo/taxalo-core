@@ -11,11 +11,10 @@ public class MessageSend implements Listener {
 
     @EventHandler
     public void PlayerChatEvent(AsyncPlayerChatEvent e) {
-        ColorManager colorManager = Core.getInstance().getColorManager();
-        String newFormat = colorManager.getColor(e.getPlayer().getUniqueId()) + "<player>" + ChatColor.DARK_GRAY + ":" + ChatColor.WHITE + " <message>";
-        newFormat = newFormat
-                .replace("<player>", "%1$s")
-                .replace("<message>", "%2$s");
+        final ColorManager colorManager = Core.getInstance().getColorManager();
+
+        final String newFormat = colorManager.getColor(e.getPlayer().getUniqueId()) + "%1$s" + ChatColor.DARK_GRAY + ":" + ChatColor.WHITE + " %2$s";
+
         e.setFormat(newFormat);
     }
 }

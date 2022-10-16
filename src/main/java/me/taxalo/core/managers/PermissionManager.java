@@ -36,24 +36,32 @@ public class PermissionManager {
     }
 
     public void removePermission(UUID uuid, String permission) {
-        PermissionAttachment permissionAttachment = attachments.get(uuid);
+        final PermissionAttachment permissionAttachment = attachments.get(uuid);
+
         if (permissionAttachment == null) {
-            Player player = Bukkit.getServer().getPlayer(uuid);
+            final Player player = Bukkit.getServer().getPlayer(uuid);
+
             if (player == null) return;
+
             addAttachment(player);
             return;
         }
+
         if (!permissionAttachment.getPermissions().containsKey(permission)) return;
         permissionAttachment.unsetPermission(permission);
     }
 
     public void addAttachment(Player player) {
-        UUID playerUUID = player.getUniqueId();
-        if (attachments.get(playerUUID) != null) return;
-        PermissionAttachment permissionAttachment = player.addAttachment(plugin);
+        final UUID playerUUID = player.getUniqueId();
 
-        RankManager rankManager = plugin.getRankManager();
-        ArrayList<String> ranks = rankManager.getUser(playerUUID);
+        if (attachments.get(playerUUID) != null) return;
+
+        final PermissionAttachment permissionAttachment = player.addAttachment(plugin);
+
+        final RankManager rankManager = plugin.getRankManager();
+
+        final ArrayList<String> ranks = rankManager.getUser(playerUUID);
+
         if (ranks != null && ranks.size() > 0) {
             for (String rank : ranks) {
                 ArrayList<String> rankPermissions = rankManager.getPermissions(rank);
@@ -69,8 +77,10 @@ public class PermissionManager {
     }
 
     public void removeAttachment(Player player) {
-        UUID playerUUID = player.getUniqueId();
+        final UUID playerUUID = player.getUniqueId();
+
         if (attachments.get(playerUUID) == null) return;
+
         player.removeAttachment(attachments.get(playerUUID));
         attachments.remove(playerUUID);
     }
