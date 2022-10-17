@@ -11,8 +11,8 @@
 * `/perms <add/remove> <rank> <permission>`
 * `/rank list`
 * `/rank <create/remove> <rank>`
-* `setpriority <rank> <priority>`
-* `setprefix <rank> <prefix>`
+* `/setpriority <rank> <priority>`
+* `/setprefix <rank> <prefix>`
 
 ### Others
 * `/back`
