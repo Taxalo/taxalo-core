@@ -152,7 +152,7 @@ public class RankManager {
 
     }
 
-    public void setPriority(Player player, String rankName, int priority) {
+    public void setPriority(String rankName, int priority) {
         if (!ranksList.containsKey(rankName)) return;
 
         val rank = ranksList.get(rankName);
@@ -160,13 +160,17 @@ public class RankManager {
         rank.setPriority(priority);
         mongoHandler.setRankPriorty(rankName, priority);
 
-        final String prefix = getHighestPrefix(player);
         final Scoreboard scoreboard = plugin.getScoreboard();
-        final Team team = scoreboard.getTeam(player.getName());
 
-        if (team == null) return;
+        for (UUID uuid : getUsersWithRank(rankName)) {
+            final Player player = Bukkit.getServer().getPlayer(uuid);
+            if (player == null) continue;
 
-        setColoredPrefix(team, prefix);
+            val team = scoreboard.getTeam(player.getName());
+            if (team == null) continue;
+
+            setColoredPrefix(team, getHighestPrefix(player));
+        }
     }
 
     public String getHighestPrefix(Player player) {

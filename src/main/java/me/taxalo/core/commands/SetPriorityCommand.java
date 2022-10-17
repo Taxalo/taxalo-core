@@ -17,8 +17,6 @@ public class SetPriorityCommand implements CommandExecutor {
 
         if (!(sender instanceof Player)) return false;
 
-        Player player = (Player) sender;
-
         final RankManager rankManager = plugin.getRankManager();
 
         switch (args.length) {
@@ -33,7 +31,7 @@ public class SetPriorityCommand implements CommandExecutor {
                     return false;
                 }
 
-                rankManager.setPriority(player, args[0], Integer.parseInt(args[1]));
+                rankManager.setPriority(args[0], Integer.parseInt(args[1]));
 
                 sender.sendMessage(MM.getPrefix() + " Set priority of " + args[0] + " to " + args[1]);
         }
