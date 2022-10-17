@@ -3,6 +3,7 @@ package me.taxalo.core.commands;
 import me.taxalo.core.Core;
 import me.taxalo.core.managers.RankManager;
 import me.taxalo.core.utils.MM;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -37,6 +38,8 @@ public class SetPrefixCommand implements CommandExecutor {
                 }
 
                 rankManager.setPrefix(args[0], args[1]);
+
+                sender.sendMessage(MM.getPrefix() + " Set prefix of " + args[0] + " to " + ChatColor.translateAlternateColorCodes('&', args[1]));
         }
         return false;
     }
