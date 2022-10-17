@@ -11,6 +11,8 @@
 * `/perms <add/remove> <rank> <permission>`
 * `/rank list`
 * `/rank <create/remove> <rank>`
+* `setpriority <rank> <priority>`
+* `setprefix <rank> <prefix>`
 
 ### Others
 * `/back`
@@ -21,6 +23,9 @@
 * `manage` - `taxalocore.command.manage`
 * `rank` - `taxalocore.command.rank`
 * `perms` - `taxalocore.command.perms`
+* `setprefix` - `taxalocore.command.setprefix`
+* `setpriority` - `taxalocore.command.setpriority`
 * `setcolor` - `taxalocore.command.setcolor`
 * `tp` - `taxalocore.command.tp`
 * `back` - `taxalocore.command.back`
+
