@@ -11,7 +11,8 @@ import java.util.Objects;
 public class CommandHandler {
     public CommandHandler() {
         Arrays.asList(
-            new ManageCommand(), new SetColorCommand(), new RankCommand(), new PermsCommand(), new TPCommand(), new BackCommand()
+                new ManageCommand(), new RankCommand(), new PermsCommand(), new SetPrefixCommand(), new SetPriorityCommand(),
+                new TPCommand(), new BackCommand(), new SetColorCommand()
         ).forEach(command -> {
             final String commandName = command.getClass().getSimpleName().toLowerCase().split("command")[0];
 

@@ -19,6 +19,16 @@ commands:
       - perm
     description: Permission manager
     permission: taxalocore.command.perms
+  setprefix:
+    aliases:
+      - sprefix
+    description: Rank prefix manager
+    permission: taxalocore.command.setprefix
+  setpriority:
+    aliases:
+      - spriority
+    description: Rank priority manager
+    permission: taxalocore.command.setpriority
   setcolor:
     description: Color Manager
     permission: taxalocore.command.setcolor

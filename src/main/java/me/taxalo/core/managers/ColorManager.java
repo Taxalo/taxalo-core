@@ -46,7 +46,8 @@ public class ColorManager {
 
     public void setColor(UUID uuid, String color) {
         userColors.put(uuid, color);
-        MongoDB mongoHandler = plugin.getMongoHandler();
+        final MongoDB mongoHandler = plugin.getMongoHandler();
+
         mongoHandler.setColor(uuid, color);
 
         // Update tabname
@@ -81,6 +82,7 @@ public class ColorManager {
 
         Team teamName = teamScoreboard.registerNewTeam(playerName);
         teamName.setColor(chatColor);
+
         return teamName;
     }
 

@@ -5,8 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class PermissionManager {
@@ -25,7 +25,9 @@ public class PermissionManager {
 
     public void addPermission(UUID uuid, String permission) {
         PermissionAttachment permissionAttachment = attachments.get(uuid);
+
         Player player = Bukkit.getServer().getPlayer(uuid);
+
         if (player == null) return;
         if (permissionAttachment == null) {
             addAttachment(player);
@@ -60,11 +62,11 @@ public class PermissionManager {
 
         final RankManager rankManager = plugin.getRankManager();
 
-        final ArrayList<String> ranks = rankManager.getUser(playerUUID);
+        final List<String> ranks = rankManager.getUser(playerUUID);
 
         if (ranks != null && ranks.size() > 0) {
             for (String rank : ranks) {
-                ArrayList<String> rankPermissions = rankManager.getPermissions(rank);
+                List<String> rankPermissions = rankManager.getPermissions(rank);
                 if (rankPermissions == null) continue;
                 for (String permission : rankPermissions) {
                     if (permissionAttachment.getPermissions().containsKey(permission)) continue;
