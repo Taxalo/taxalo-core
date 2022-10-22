@@ -39,11 +39,12 @@ public final class Core extends JavaPlugin implements Listener {
         new CommandHandler();
         new EventHandler();
 
-        String mongoURI = getConfig().getString("mongoURI");
+        final String mongoURI = getConfig().getString("mongoURI");
 
         if (mongoURI == null || mongoURI.length() == 0) {
             MM.sendMessage(ChatColor.DARK_RED + ChatColor.BOLD.toString() + " No valid MongoURI was found in config.yml");
             MM.sendMessage(ChatColor.RED + " Please specify a MongoURI in config.yml");
+
             Bukkit.getPluginManager().disablePlugin(this);
             Bukkit.shutdown();
         }

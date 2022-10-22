@@ -37,7 +37,7 @@ public class RankManager {
             for (Player player : plugin.getServer().getOnlinePlayers()) {
                 final Document user = mongoHandler.getUser(player.getUniqueId());
 
-                List<String> ranks = user.getList("ranks", String.class);
+                final List<String> ranks = user.getList("ranks", String.class);
 
                 if (ranks == null) continue;
                 userList.put(player.getUniqueId(), ranks);

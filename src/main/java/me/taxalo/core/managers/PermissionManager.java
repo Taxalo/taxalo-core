@@ -24,9 +24,9 @@ public class PermissionManager {
     }
 
     public void addPermission(UUID uuid, String permission) {
-        PermissionAttachment permissionAttachment = attachments.get(uuid);
+        final PermissionAttachment permissionAttachment = attachments.get(uuid);
 
-        Player player = Bukkit.getServer().getPlayer(uuid);
+        final Player player = Bukkit.getServer().getPlayer(uuid);
 
         if (player == null) return;
         if (permissionAttachment == null) {

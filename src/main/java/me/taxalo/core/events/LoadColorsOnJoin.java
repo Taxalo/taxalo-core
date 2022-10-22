@@ -33,7 +33,7 @@ public class LoadColorsOnJoin implements Listener {
         final MongoDB mongoHandler = plugin.getMongoHandler();
         final Document user = mongoHandler.getUser(player.getUniqueId());
 
-        String color = user == null ? ChatColor.GRAY.toString() : user.getString("color");
+        final String color = user == null ? ChatColor.GRAY.toString() : user.getString("color");
 
         colorManager.setColor(player.getUniqueId(), color);
         player.setScoreboard(plugin.getScoreboard());

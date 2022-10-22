@@ -24,17 +24,17 @@ public class ColorManager {
     }
 
     public Boolean isLoaded(UUID uuid) {
-        String color = userColors.get(uuid);
+        final String color = userColors.get(uuid);
         return color != null;
     }
 
     public String getColor(UUID uuid) {
-        String color = userColors.get(uuid);
+        final String color = userColors.get(uuid);
         return color == null ? ChatColor.GRAY.toString() : color;
     }
 
     public void loadColors() {
-        MongoDB mongoHandler = plugin.getMongoHandler();
+        final MongoDB mongoHandler = plugin.getMongoHandler();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             for (Player player : plugin.getServer().getOnlinePlayers()) {
                 Document user = mongoHandler.getUser(player.getUniqueId());
@@ -51,7 +51,7 @@ public class ColorManager {
         mongoHandler.setColor(uuid, color);
 
         // Update tabname
-        Player player = Bukkit.getServer().getPlayer(uuid);
+        final Player player = Bukkit.getServer().getPlayer(uuid);
 
         if (player == null) return;
 
@@ -59,7 +59,7 @@ public class ColorManager {
     }
 
     public void addToTeam(String playerName, String color) {
-        Team playerTeam = createTeam(playerName, color);
+        final Team playerTeam = createTeam(playerName, color);
 
         if (playerTeam == null) {
             return;
@@ -69,18 +69,18 @@ public class ColorManager {
     }
 
     public Team createTeam(String playerName, String color) {
-        Scoreboard teamScoreboard = plugin.getScoreboard();
+        final Scoreboard teamScoreboard = plugin.getScoreboard();
 
-        Team team = teamScoreboard.getTeam(playerName);
+        final Team team = teamScoreboard.getTeam(playerName);
 
-        ChatColor chatColor = Objects.requireNonNull(ChatColor.getByChar(color.substring(1)));
+        final ChatColor chatColor = Objects.requireNonNull(ChatColor.getByChar(color.substring(1)));
 
         if (team != null) {
             team.setColor(chatColor);
             return null;
         }
 
-        Team teamName = teamScoreboard.registerNewTeam(playerName);
+        final Team teamName = teamScoreboard.registerNewTeam(playerName);
         teamName.setColor(chatColor);
 
         return teamName;

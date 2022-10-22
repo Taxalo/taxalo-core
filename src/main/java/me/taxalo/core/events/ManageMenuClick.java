@@ -50,7 +50,7 @@ public class ManageMenuClick implements Listener {
                 break;
             case ANVIL:
 
-                Player inventoryPlayer = Bukkit.getServer().getPlayer(inventoryUser);
+                final Player inventoryPlayer = Bukkit.getServer().getPlayer(inventoryUser);
 
                 if (inventoryPlayer == null) {
                     player.closeInventory();
