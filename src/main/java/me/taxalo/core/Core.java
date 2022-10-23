@@ -27,8 +27,6 @@ public final class Core extends JavaPlugin implements Listener {
     private RankManager rankManager;
     private PermissionManager permissionManager;
     private BackManager backManager;
-
-    @Getter
     private Scoreboard scoreboard;
 
     @Override
@@ -58,6 +56,7 @@ public final class Core extends JavaPlugin implements Listener {
         backManager = new BackManager(this);
 
         colorManager.loadColors();
+
         MM.sendMessage("Enabled");
     }
 

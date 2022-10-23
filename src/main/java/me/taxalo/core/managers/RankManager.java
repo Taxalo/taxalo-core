@@ -3,6 +3,7 @@ package me.taxalo.core.managers;
 import lombok.val;
 import me.taxalo.core.Core;
 import me.taxalo.core.database.MongoDB;
+import me.taxalo.core.utils.MM;
 import me.taxalo.core.utils.Rank;
 import org.bson.Document;
 import org.bukkit.Bukkit;
@@ -229,7 +230,7 @@ public class RankManager {
 
     public void setColoredPrefix(Team team, String prefix) {
         final String space = prefix.length() == 0 ? "" : " ";
-        team.setPrefix(ChatColor.translateAlternateColorCodes('&', prefix + space));
+        team.setPrefix(MM.translate(prefix + space));
     }
 
 }
