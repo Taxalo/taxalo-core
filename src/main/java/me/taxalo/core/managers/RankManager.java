@@ -185,7 +185,6 @@ public class RankManager {
 
         if (highestRank == null) return "";
 
-        System.out.println(highestRank.getPrefix());
         return highestRank.getPrefix();
     }
 
