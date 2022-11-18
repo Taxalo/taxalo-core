@@ -13,17 +13,17 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 public class ManageMenuClick implements Listener {
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         if (e.getCurrentItem() == null) return;
 
-        final Player player = (Player) e.getWhoClicked();
+        Player player = (Player) e.getWhoClicked();
 
         if (!ManageMenu.managedUsers.containsKey(player.getUniqueId())) return;
 
-        final Inventory inventory = ManageMenu.managedUsers.get(player.getUniqueId()).getInventory();
+        Inventory inventory = ManageMenu.managedUsers.get(player.getUniqueId()).getInventory();
 
         if (e.getClickedInventory() == null || e.getClickedInventory() != inventory) return;
 
@@ -50,7 +50,7 @@ public class ManageMenuClick implements Listener {
                 break;
             case ANVIL:
 
-                final Player inventoryPlayer = Bukkit.getServer().getPlayer(inventoryUser);
+                Player inventoryPlayer = Bukkit.getServer().getPlayer(inventoryUser);
 
                 if (inventoryPlayer == null) {
                     player.closeInventory();

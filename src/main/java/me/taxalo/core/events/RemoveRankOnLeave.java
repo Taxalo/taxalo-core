@@ -8,11 +8,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class RemoveRankOnLeave implements Listener {
 
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
-        final PermissionManager permissionManager = plugin.getPermissionManager();
+        PermissionManager permissionManager = plugin.getPermissionManager();
 
         if (permissionManager == null) return;
 

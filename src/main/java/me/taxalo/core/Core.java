@@ -18,7 +18,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import java.util.Objects;
 
 @Getter
-public final class Core extends JavaPlugin implements Listener {
+public class Core extends JavaPlugin implements Listener {
 
     @Getter
     public static Core Instance;
@@ -37,7 +37,7 @@ public final class Core extends JavaPlugin implements Listener {
         new CommandHandler();
         new EventHandler();
 
-        final String mongoURI = getConfig().getString("mongoURI");
+        String mongoURI = getConfig().getString("mongoURI");
 
         if (mongoURI == null || mongoURI.length() == 0) {
             MM.sendMessage(ChatColor.DARK_RED + ChatColor.BOLD.toString() + " No valid MongoURI was found in config.yml");

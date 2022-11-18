@@ -11,13 +11,13 @@ import org.bukkit.entity.Player;
 
 public class PermsCommand implements CommandExecutor {
     // /perms [add/remove/list] [rank] [permission]
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return false;
 
-        final RankManager rankManager = plugin.getRankManager();
+        RankManager rankManager = plugin.getRankManager();
 
         switch (args.length) {
             case 0:
@@ -34,7 +34,7 @@ public class PermsCommand implements CommandExecutor {
                     return false;
                 }
 
-                final String list = String.join(ChatColor.RESET + ", " + ChatColor.GOLD, rankManager.getPermissions(args[1]));
+                String list = String.join(ChatColor.RESET + ", " + ChatColor.GOLD, rankManager.getPermissions(args[1]));
                 sender.sendMessage(MM.getPrefix() + " Permissions of " + ChatColor.GOLD + args[1] + ChatColor.RESET + ": " + ChatColor.GOLD + list);
 
                 break;

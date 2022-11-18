@@ -9,13 +9,13 @@ import org.bukkit.scoreboard.Team;
 
 public class DeleteTeamOnLeave implements Listener {
 
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
-        final Scoreboard scoreboard = plugin.getScoreboard();
+        Scoreboard scoreboard = plugin.getScoreboard();
 
-        final Team team = scoreboard.getTeam(e.getPlayer().getName());
+        Team team = scoreboard.getTeam(e.getPlayer().getName());
         if (team == null) return;
 
         team.unregister();

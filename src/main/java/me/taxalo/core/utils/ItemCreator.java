@@ -8,9 +8,9 @@ import java.util.Arrays;
 
 public class ItemCreator {
 
-    public static ItemStack createGuiItem(final Material material, final String name, final String... lore) {
-        final ItemStack item = new ItemStack(material, 1);
-        final ItemMeta meta = item.getItemMeta();
+    public static ItemStack createGuiItem(Material material, String name, String... lore) {
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
 
         if (meta == null) return item;
 

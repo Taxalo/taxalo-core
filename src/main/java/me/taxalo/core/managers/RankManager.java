@@ -7,7 +7,6 @@ import me.taxalo.core.utils.MM;
 import me.taxalo.core.utils.Rank;
 import org.bson.Document;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
@@ -16,9 +15,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class RankManager {
-    final Core plugin;
-    final MongoDB mongoHandler;
-    final PermissionManager permissionManager;
+    Core plugin;
+    MongoDB mongoHandler;
+    PermissionManager permissionManager;
     private final HashMap<UUID, List<String>> userList;
     private final HashMap<String, Rank> ranksList;
 
@@ -33,12 +32,12 @@ public class RankManager {
     }
 
     public void loadUsers() {
-        final MongoDB mongoHandler = plugin.getMongoHandler();
+        MongoDB mongoHandler = plugin.getMongoHandler();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             for (Player player : plugin.getServer().getOnlinePlayers()) {
-                final Document user = mongoHandler.getUser(player.getUniqueId());
+                Document user = mongoHandler.getUser(player.getUniqueId());
 
-                final List<String> ranks = user.getList("ranks", String.class);
+                List<String> ranks = user.getList("ranks", String.class);
 
                 if (ranks == null) continue;
                 userList.put(player.getUniqueId(), ranks);
@@ -47,13 +46,13 @@ public class RankManager {
     }
 
     public void loadRanks() {
-        final MongoDB mongoHandler = plugin.getMongoHandler();
+        MongoDB mongoHandler = plugin.getMongoHandler();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             val ranks = mongoHandler.getRanks();
             if (ranks == null) return;
             for (Document rank : ranks) {
-                final String rankName = rank.get("name").toString();
-                final List<String> permissions = rank.getList("permissions", String.class);
+                String rankName = rank.get("name").toString();
+                List<String> permissions = rank.getList("permissions", String.class);
                 String prefix = rank.getString("prefix");
                 int priority = rank.getInteger("priority", 1);
 
@@ -112,7 +111,7 @@ public class RankManager {
         userList.put(uuid, ranks);
         mongoHandler.setUserRanks(uuid, ranks);
 
-        final Player player = Bukkit.getServer().getPlayer(uuid);
+        Player player = Bukkit.getServer().getPlayer(uuid);
         if (player == null) return;
 
         permissionManager.removeAttachment(player);
@@ -140,7 +139,7 @@ public class RankManager {
         // Apply prefix to every player whose highest Rank is rankName
 
         for (UUID uuid : getUsersWithRank(rankName)) {
-            final Player player = Bukkit.getServer().getPlayer(uuid);
+            Player player = Bukkit.getServer().getPlayer(uuid);
             if (player == null) continue;
 
             if (!Objects.equals(getHighestPrefix(player), prefix)) continue;
@@ -161,10 +160,10 @@ public class RankManager {
         rank.setPriority(priority);
         mongoHandler.setRankPriorty(rankName, priority);
 
-        final Scoreboard scoreboard = plugin.getScoreboard();
+        Scoreboard scoreboard = plugin.getScoreboard();
 
         for (UUID uuid : getUsersWithRank(rankName)) {
-            final Player player = Bukkit.getServer().getPlayer(uuid);
+            Player player = Bukkit.getServer().getPlayer(uuid);
             if (player == null) continue;
 
             val team = scoreboard.getTeam(player.getName());
@@ -229,7 +228,7 @@ public class RankManager {
     }
 
     public void setColoredPrefix(Team team, String prefix) {
-        final String space = prefix.length() == 0 ? "" : " ";
+        String space = prefix.length() == 0 ? "" : " ";
         team.setPrefix(MM.translate(prefix + space));
     }
 

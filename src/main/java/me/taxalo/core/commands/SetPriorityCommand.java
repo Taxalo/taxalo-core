@@ -10,14 +10,14 @@ import org.bukkit.entity.Player;
 
 public class SetPriorityCommand implements CommandExecutor {
 
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) return false;
 
-        final RankManager rankManager = plugin.getRankManager();
+        RankManager rankManager = plugin.getRankManager();
 
         switch (args.length) {
             case 0:

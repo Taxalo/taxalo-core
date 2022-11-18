@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class BackManager {
 
-    final Core plugin;
+    Core plugin;
     private final HashMap<UUID, Location> usersLocation;
 
     public BackManager(Core core) {
@@ -17,7 +17,7 @@ public class BackManager {
     }
 
     public Boolean isLoaded(UUID uuid) {
-        final Location location = usersLocation.get(uuid);
+        Location location = usersLocation.get(uuid);
         return location != null;
     }
 

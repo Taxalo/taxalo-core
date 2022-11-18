@@ -14,7 +14,7 @@ public class CommandHandler {
                 new ManageCommand(), new RankCommand(), new PermsCommand(), new SetPrefixCommand(), new SetPriorityCommand(),
                 new TPCommand(), new BackCommand(), new SetColorCommand()
         ).forEach(command -> {
-            final String commandName = command.getClass().getSimpleName().toLowerCase().split("command")[0];
+            String commandName = command.getClass().getSimpleName().toLowerCase().split("command")[0];
 
             Objects.requireNonNull(Core.getInstance().getCommand(commandName)).setExecutor(command);
             MM.sendMessage("Loaded command " + ChatColor.GOLD + commandName);

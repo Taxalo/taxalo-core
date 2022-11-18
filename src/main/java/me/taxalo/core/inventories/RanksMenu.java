@@ -21,17 +21,17 @@ import java.util.UUID;
 
 public class RanksMenu {
 
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
-    final ItemStack userManager = ItemCreator.createGuiItem(Material.ANVIL, ChatColor.GOLD + "Manage user", ChatColor.GRAY + "Opens a GUI to see and remove user ranks.");
+    ItemStack userManager = ItemCreator.createGuiItem(Material.ANVIL, ChatColor.GOLD + "Manage user", ChatColor.GRAY + "Opens a GUI to see and remove user ranks.");
     @Getter
     private static final String inventoryName = ChatColor.DARK_RED + ChatColor.BOLD.toString() + "Ranks Menu";
-    public static final HashMap<UUID, MenuHolder> rankUsers = new HashMap<>();
+    public static HashMap<UUID, MenuHolder> rankUsers = new HashMap<>();
 
     public RanksMenu(Player player, UUID creatorUUID) {
 
-        final ColorManager colorManager = plugin.getColorManager();
-        final Inventory inventory = Bukkit.createInventory(null, 54, inventoryName);
+        ColorManager colorManager = plugin.getColorManager();
+        Inventory inventory = Bukkit.createInventory(null, 54, inventoryName);
 
         val backgroundItem = ItemCreator.createGuiItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE, ChatColor.RESET.toString());
 
@@ -42,8 +42,8 @@ public class RanksMenu {
                         46, 47, 48, 49, 50, 51, 52)
                 .forEach(integer -> inventory.setItem(integer, backgroundItem));
 
-        final ItemStack playerHead = SkullCreator.itemFromUuid(player.getUniqueId());
-        final ItemMeta headMeta = playerHead.getItemMeta();
+        ItemStack playerHead = SkullCreator.itemFromUuid(player.getUniqueId());
+        ItemMeta headMeta = playerHead.getItemMeta();
 
         if (headMeta != null) {
             headMeta.setDisplayName(colorManager.getColor(player.getUniqueId()) + player.getName());
@@ -65,12 +65,12 @@ public class RanksMenu {
 
         inventory.setItem(53, userManager);
 
-        final MenuHolder menuHolder = new MenuHolder(player.getUniqueId(), inventory);
+        MenuHolder menuHolder = new MenuHolder(player.getUniqueId(), inventory);
         rankUsers.put(creatorUUID, menuHolder);
     }
 
     public static Inventory getMenu(UUID creatorUUID) {
-        final MenuHolder menuHolder = rankUsers.get(creatorUUID);
+        MenuHolder menuHolder = rankUsers.get(creatorUUID);
         return menuHolder.getInventory();
     }
 
@@ -79,7 +79,7 @@ public class RanksMenu {
     }
 
     public static UUID getHolder(UUID creatorUUID) {
-        final MenuHolder menuHolder = rankUsers.get(creatorUUID);
+        MenuHolder menuHolder = rankUsers.get(creatorUUID);
         return menuHolder.getCreator();
     }
 

@@ -11,8 +11,8 @@ import java.util.UUID;
 
 public class PermissionManager {
 
-    final Core plugin;
-    final HashMap<UUID, PermissionAttachment> attachments;
+    Core plugin;
+    HashMap<UUID, PermissionAttachment> attachments;
 
     public PermissionManager(Core core) {
         plugin = core;
@@ -24,9 +24,9 @@ public class PermissionManager {
     }
 
     public void addPermission(UUID uuid, String permission) {
-        final PermissionAttachment permissionAttachment = attachments.get(uuid);
+        PermissionAttachment permissionAttachment = attachments.get(uuid);
 
-        final Player player = Bukkit.getServer().getPlayer(uuid);
+        Player player = Bukkit.getServer().getPlayer(uuid);
 
         if (player == null) return;
         if (permissionAttachment == null) {
@@ -38,10 +38,10 @@ public class PermissionManager {
     }
 
     public void removePermission(UUID uuid, String permission) {
-        final PermissionAttachment permissionAttachment = attachments.get(uuid);
+        PermissionAttachment permissionAttachment = attachments.get(uuid);
 
         if (permissionAttachment == null) {
-            final Player player = Bukkit.getServer().getPlayer(uuid);
+            Player player = Bukkit.getServer().getPlayer(uuid);
 
             if (player == null) return;
 
@@ -54,15 +54,15 @@ public class PermissionManager {
     }
 
     public void addAttachment(Player player) {
-        final UUID playerUUID = player.getUniqueId();
+        UUID playerUUID = player.getUniqueId();
 
         if (attachments.get(playerUUID) != null) return;
 
-        final PermissionAttachment permissionAttachment = player.addAttachment(plugin);
+        PermissionAttachment permissionAttachment = player.addAttachment(plugin);
 
-        final RankManager rankManager = plugin.getRankManager();
+        RankManager rankManager = plugin.getRankManager();
 
-        final List<String> ranks = rankManager.getUser(playerUUID);
+        List<String> ranks = rankManager.getUser(playerUUID);
 
         if (ranks != null && ranks.size() > 0) {
             for (String rank : ranks) {
@@ -79,7 +79,7 @@ public class PermissionManager {
     }
 
     public void removeAttachment(Player player) {
-        final UUID playerUUID = player.getUniqueId();
+        UUID playerUUID = player.getUniqueId();
 
         if (attachments.get(playerUUID) == null) return;
 

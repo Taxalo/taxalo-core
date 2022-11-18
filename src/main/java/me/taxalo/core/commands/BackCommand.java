@@ -17,13 +17,13 @@ public class BackCommand implements CommandExecutor {
             return true;
         }
 
-        final BackManager backManager = Core.getInstance().getBackManager();
+        BackManager backManager = Core.getInstance().getBackManager();
         if (backManager == null) return true;
 
-        final Player player = (Player) sender;
+        Player player = (Player) sender;
         if (!backManager.isLoaded(player.getUniqueId())) return false;
 
-        final Location location = backManager.getLocation(player.getUniqueId());
+        Location location = backManager.getLocation(player.getUniqueId());
 
         player.teleport(location);
         player.sendMessage(MM.getPrefix() + "You have been teleported to your last death location.");

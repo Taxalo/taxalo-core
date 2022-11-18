@@ -12,12 +12,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class LoadColorsOnJoin implements Listener {
 
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        final ColorManager colorManager = plugin.getColorManager();
-        final Player player = event.getPlayer();
+        ColorManager colorManager = plugin.getColorManager();
+        Player player = event.getPlayer();
 
         if (colorManager == null) {
             player.kickPlayer("Your data was not loaded yet. Try again.");
@@ -30,10 +30,10 @@ public class LoadColorsOnJoin implements Listener {
             return;
         }
 
-        final MongoDB mongoHandler = plugin.getMongoHandler();
-        final Document user = mongoHandler.getUser(player.getUniqueId());
+        MongoDB mongoHandler = plugin.getMongoHandler();
+        Document user = mongoHandler.getUser(player.getUniqueId());
 
-        final String color = user == null ? ChatColor.GRAY.toString() : user.getString("color");
+        String color = user == null ? ChatColor.GRAY.toString() : user.getString("color");
 
         colorManager.setColor(player.getUniqueId(), color);
         player.setScoreboard(plugin.getScoreboard());

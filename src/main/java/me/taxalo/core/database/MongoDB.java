@@ -19,8 +19,8 @@ import java.util.concurrent.ExecutionException;
 
 public class MongoDB {
 
-    final Core plugin = Core.getInstance();
-    final MongoClient mongoClient;
+    Core plugin = Core.getInstance();
+    MongoClient mongoClient;
 
     @Getter
     private final MongoDatabase database;
@@ -39,8 +39,8 @@ public class MongoDB {
     }
 
     public void createUser(UUID uuid, String color, List<String> ranks) {
-        final Date date = new Date(System.currentTimeMillis());
-        final Document user = new Document("_id", new ObjectId())
+        Date date = new Date(System.currentTimeMillis());
+        Document user = new Document("_id", new ObjectId())
                 .append("uuid", uuid)
                 .append("color", color != null ? color : ChatColor.GRAY.toString())
                 .append("ranks", ranks != null ? ranks : Collections.emptyList())
@@ -51,7 +51,7 @@ public class MongoDB {
 
     public void setColor(UUID uuid, String color) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            final Document findUser = userCollection.find(Filters.eq("uuid", uuid)).first();
+            Document findUser = userCollection.find(Filters.eq("uuid", uuid)).first();
 
             if (findUser == null) {
                 createUser(uuid, color, null);
@@ -64,7 +64,7 @@ public class MongoDB {
 
     public void setUserRanks(UUID uuid, List<String> ranks) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            final Document findUser = userCollection.find(Filters.eq("uuid", uuid)).first();
+            Document findUser = userCollection.find(Filters.eq("uuid", uuid)).first();
 
             if (findUser == null) {
                 createUser(uuid, null, ranks);
@@ -76,13 +76,13 @@ public class MongoDB {
 
     public void addRank(String name, List<String> permissions) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            final Document findRank = ranksCollection.find(Filters.eq("name", name)).first();
+            Document findRank = ranksCollection.find(Filters.eq("name", name)).first();
 
             if (findRank != null) return;
 
-            final Date date = new Date(System.currentTimeMillis());
+            Date date = new Date(System.currentTimeMillis());
 
-            final Document rank = new Document("_id", new ObjectId())
+            Document rank = new Document("_id", new ObjectId())
                     .append("name", name)
                     .append("permissions", permissions == null ? Collections.emptyList() : permissions)
                     .append("prefix", "")
@@ -95,7 +95,7 @@ public class MongoDB {
 
     public void removeRank(String name) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            final Document findRank = ranksCollection.find(Filters.eq("name", name)).first();
+            Document findRank = ranksCollection.find(Filters.eq("name", name)).first();
 
             if (findRank == null) return;
 
@@ -107,11 +107,11 @@ public class MongoDB {
     public void addPermission(String rankName, String permission) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
-            final Document findRank = ranksCollection.find(Filters.eq("name", rankName)).first();
+            Document findRank = ranksCollection.find(Filters.eq("name", rankName)).first();
 
             if (findRank == null) return;
 
-            final List<String> permissions = findRank.getList("permissions", String.class);
+            List<String> permissions = findRank.getList("permissions", String.class);
 
             if (permission.length() == 0) {
                 ranksCollection.updateOne(Filters.eq("name", rankName), Updates.set("permissions", (Collections.singleton(permission))));
@@ -125,11 +125,11 @@ public class MongoDB {
     public void removePermission(String rankName, String permission) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
-            final Document findRank = ranksCollection.find(Filters.eq("name", rankName)).first();
+            Document findRank = ranksCollection.find(Filters.eq("name", rankName)).first();
 
             if (findRank == null) return;
 
-            final List<String> permissions = findRank.getList("permissions", String.class);
+            List<String> permissions = findRank.getList("permissions", String.class);
 
             if (permission.length() > 0) {
                 permissions.remove(permission);
@@ -141,7 +141,7 @@ public class MongoDB {
 
     public void setRankPrefix(String rankName, String rankPrefix) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            final Document findRank = ranksCollection.find(Filters.eq("name", rankName)).first();
+            Document findRank = ranksCollection.find(Filters.eq("name", rankName)).first();
 
             if (findRank == null) return;
 
@@ -151,7 +151,7 @@ public class MongoDB {
 
     public void setRankPriorty(String rankName, int rankPriority) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            final Document findRank = ranksCollection.find(Filters.eq("name", rankName)).first();
+            Document findRank = ranksCollection.find(Filters.eq("name", rankName)).first();
 
             if (findRank == null) return;
 
@@ -168,7 +168,7 @@ public class MongoDB {
          * Y devolver este resultado para poder ejecutarlo en el primer thread
          */
 
-        final CompletableFuture<Document> complete = CompletableFuture.supplyAsync(() -> userCollection.find(Filters.eq("uuid", uuid)).first());
+        CompletableFuture<Document> complete = CompletableFuture.supplyAsync(() -> userCollection.find(Filters.eq("uuid", uuid)).first());
 
         try {
             return complete.get();

@@ -13,15 +13,15 @@ public class MessageSend implements Listener {
 
     @EventHandler
     public void PlayerChatEvent(AsyncPlayerChatEvent e) {
-        final ColorManager colorManager = Core.getInstance().getColorManager();
-        final RankManager rankManager = Core.getInstance().getRankManager();
+        ColorManager colorManager = Core.getInstance().getColorManager();
+        RankManager rankManager = Core.getInstance().getRankManager();
         if (colorManager == null || rankManager == null) return;
 
-        final String prefix = MM.translate(rankManager.getHighestPrefix(e.getPlayer()));
-        final String color = colorManager.getColor(e.getPlayer().getUniqueId());
-        final String formatText = ChatColor.DARK_GRAY + ":" + ChatColor.WHITE;
+        String prefix = MM.translate(rankManager.getHighestPrefix(e.getPlayer()));
+        String color = colorManager.getColor(e.getPlayer().getUniqueId());
+        String formatText = ChatColor.DARK_GRAY + ":" + ChatColor.WHITE;
 
-        final String newFormat = prefix + " " + color + "%1$s" + formatText  + " %2$s";
+        String newFormat = prefix + " " + color + "%1$s" + formatText + " %2$s";
 
         e.setFormat(newFormat);
     }

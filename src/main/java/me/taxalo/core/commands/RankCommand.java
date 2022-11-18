@@ -11,13 +11,13 @@ import org.bukkit.entity.Player;
 
 public class RankCommand implements CommandExecutor {
 
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return false;
 
-        final RankManager rankManager = plugin.getRankManager();
+        RankManager rankManager = plugin.getRankManager();
 
         switch (args.length) {
             case 0:
@@ -29,7 +29,7 @@ public class RankCommand implements CommandExecutor {
                     return false;
                 }
 
-                final String list = String.join(ChatColor.RESET + ", " + ChatColor.GOLD, rankManager.getRanks());
+                String list = String.join(ChatColor.RESET + ", " + ChatColor.GOLD, rankManager.getRanks());
                 sender.sendMessage(MM.getPrefix() + " Ranks: " + ChatColor.GOLD + list);
 
                 break;

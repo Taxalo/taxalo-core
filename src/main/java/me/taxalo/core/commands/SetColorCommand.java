@@ -16,8 +16,8 @@ public class SetColorCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return false;
 
-        final Player senderPlayer = (Player) sender;
-        final ColorManager colorManager = Core.getInstance().getColorManager();
+        Player senderPlayer = (Player) sender;
+        ColorManager colorManager = Core.getInstance().getColorManager();
 
         switch (args.length) {
             case 0:

@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class SetPrefixCommand implements CommandExecutor {
 
-    final Core plugin = Core.getInstance();
+    Core plugin = Core.getInstance();
 
 
     @Override
@@ -19,7 +19,7 @@ public class SetPrefixCommand implements CommandExecutor {
 
         if (!(sender instanceof Player)) return false;
 
-        final RankManager rankManager = plugin.getRankManager();
+        RankManager rankManager = plugin.getRankManager();
 
         switch (args.length) {
             case 0:
