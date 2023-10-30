@@ -2,6 +2,7 @@ package me.taxalo.core.commands;
 
 import me.taxalo.core.utils.MM;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,6 +41,16 @@ public class TPCommand implements CommandExecutor {
                     firstPlayer.teleport(secondPlayer.getLocation());
                     firstPlayer.sendMessage(MM.getPrefix() + " Teleported to " + secondPlayer.getName());
 
+                    break;
+                case 3:
+                    String coordX = args[0];
+                    String coordY = args[1];
+                    String coordZ = args[2];
+
+                    Player senderPlayer = (Player) sender;
+
+                    senderPlayer.teleport(new Location(senderPlayer.getWorld(), Double.parseDouble(coordX), Double.parseDouble(coordY), Double.parseDouble(coordZ)));
+                    senderPlayer.sendMessage(MM.getPrefix() + " Teleported to " + coordX + " " + coordY + " " + coordZ);
                     break;
             }
         } else {

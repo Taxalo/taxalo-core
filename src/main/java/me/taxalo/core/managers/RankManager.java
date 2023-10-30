@@ -175,7 +175,6 @@ public class RankManager {
 
     public String getHighestPrefix(Player player) {
         val user = userList.get(player.getUniqueId());
-
         if (user == null) return null;
 
         val highestRank = user.stream()
@@ -228,7 +227,7 @@ public class RankManager {
     }
 
     public void setColoredPrefix(Team team, String prefix) {
-        String space = prefix.length() == 0 ? "" : " ";
+        String space = prefix.isEmpty() ? "" : " ";
         team.setPrefix(MM.translate(prefix + space));
     }
 
